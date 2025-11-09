@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -43,6 +45,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     return response()->json(['ok' => true, 'path' => $path, 'url' => $url]);
     })->name('admin.speedrun.export');
+
+    // Category CRUD (admin/categories/*)
+    // Paginated JSON endpoint for AJAX selectors (define before resource to avoid parameter conflicts)
+    Route::get('categories/paginated', [CategoryController::class, 'paginated'])->name('categories.paginated');
+    Route::resource('categories', CategoryController::class);
+
+    // Content CRUD (admin/contents/*)
+    Route::resource('contents', ContentController::class);
 });
 
 // Keep the legacy /dashboard route working by redirecting to the new grouped URL.

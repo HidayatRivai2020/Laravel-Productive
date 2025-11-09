@@ -176,10 +176,13 @@
                         <div class="dropdown-divider"></div>
 
                         <!-- item-->
-                        <a href="auth-logout.html" class="dropdown-item notify-item">
-                            <i class="mdi mdi-location-exit fs-16 align-middle"></i>
-                            <span>Logout</span>
-                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item notify-item" style="border:0;background:transparent;padding:0;margin:0;text-align:left;">
+                                <i class="mdi mdi-location-exit fs-16 align-middle"></i>
+                                <span>Logout</span>
+                            </button>
+                        </form>
 
                     </div>
                 </li>
