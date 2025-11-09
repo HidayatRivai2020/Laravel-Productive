@@ -40,8 +40,9 @@ class ContentController extends Controller
 
     public function create()
     {
-        // Categories are selected via paginated selector (AJAX) in the form.
-        return view('admin.contents.create');
+        // Provide categories so the create form can use them as the reference
+        $categories = Category::orderBy('name')->get();
+        return view('admin.contents.create', compact('categories'));
     }
 
     public function store(ContentRequest $request): RedirectResponse
@@ -65,8 +66,8 @@ class ContentController extends Controller
     public function edit($id)
     {
         $content = Content::findOrFail($id);
-        // Categories are selected via paginated selector (AJAX) in the form.
-        return view('admin.contents.edit', compact('content'));
+        $categories = Category::orderBy('name')->get();
+        return view('admin.contents.edit', compact('content', 'categories'));
     }
 
     public function update(ContentRequest $request, $id): RedirectResponse

@@ -29,14 +29,34 @@
 
                 <li>
                     <a href="#sidebarAuth" data-bs-toggle="collapse">
-                        <i data-feather="users"></i>
+                        <i data-feather="database"></i>
+                        <span> Content Data </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarAuth">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('categories.index') }}" class="tp-link">Categories</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('contents.index') }}" class="tp-link">Contents</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('objectives.index') }}" class="tp-link">Objectives</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#sidebarAuth" data-bs-toggle="collapse">
+                        <i data-feather="briefcase"></i>
                         <span> Productivity </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="sidebarAuth">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="auth-login.html" class="tp-link">Speed Run</a>
+                                <a href="{{ route('admin.speedrun') }}" class="tp-link">Speed Run</a>
                             </li>
                         </ul>
                     </div>
