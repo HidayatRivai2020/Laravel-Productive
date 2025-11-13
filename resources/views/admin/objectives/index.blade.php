@@ -8,7 +8,7 @@
                 <h4 class="fs-18 fw-semibold m-0">Objectives</h4>
             </div>
             <div class="mt-2 mt-sm-0">
-                <a href="{{ route('objectives.create') }}" class="btn btn-primary">New Objective</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createObjectiveModal">New Objective</button>
             </div>
         </div>
         
@@ -83,6 +83,7 @@
             });
         });
     </script>
+    @include('admin.objectives._modal_create')
 @endpush
 
 </div>

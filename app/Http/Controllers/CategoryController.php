@@ -66,7 +66,8 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('admin.categories.create');
+        // Redirect to index which now contains the modal-based create UI
+        return redirect()->route('categories.index', ['create' => 1]);
     }
 
     public function store(CategoryRequest $request): RedirectResponse
@@ -113,8 +114,17 @@ class CategoryController extends Controller
     public function destroy($id): RedirectResponse
     {
         $category = Category::findOrFail($id);
-        $category->delete();
+        // Prevent deletion if there are child contents
+        $hasChildren = \App\Models\Content::where('category_id', $category->id)->exists();
+        if ($hasChildren) {
+            return Redirect::route('categories.index')->with('error', 'Cannot delete category because it has related contents. Please delete or reassign its contents first.');
+        }
 
-        return Redirect::route('categories.index')->with('success', 'Category deleted.');
+        try {
+            $category->delete();
+            return Redirect::route('categories.index')->with('success', 'Category deleted.');
+        } catch (\Exception $e) {
+            return Redirect::route('categories.index')->with('error', 'Unable to delete category.');
+        }
     }
 }

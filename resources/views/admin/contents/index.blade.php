@@ -8,12 +8,15 @@
                 <h4 class="fs-18 fw-semibold m-0">Contents</h4>
             </div>
             <div class="mt-2 mt-sm-0">
-                <a href="{{ route('contents.create') }}" class="btn btn-primary">New Content</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createContentModal">New Content</button>
             </div>
         </div>
 
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
         <!-- start row -->
@@ -89,6 +92,7 @@
             });
         });
     </script>
+    @include('admin.contents._modal_create')
 @endpush
 
 @endsection

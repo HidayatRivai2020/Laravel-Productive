@@ -26,17 +26,18 @@ class ObjectiveController extends Controller
 
         $objectives = $query->orderBy($sortBy, $sortDir)->paginate($perPage);
 
-        return view('admin.objectives.index', compact('objectives'));
-    }
-
-    public function create()
-    {
-        // load categories to select first, then load contents via AJAX based on selected category
+        // Provide categories and initial contents for the modal-based create UI
         $categories = Category::orderBy('name')->get();
         $firstCategoryId = $categories->first()?->id;
         $contents = $firstCategoryId ? Content::where('category_id', $firstCategoryId)->get() : collect();
 
-        return view('admin.objectives.create', compact('categories', 'contents', 'firstCategoryId'));
+        return view('admin.objectives.index', compact('objectives', 'categories', 'contents', 'firstCategoryId'));
+    }
+
+    public function create()
+    {
+        // Redirect to index which now contains the modal-based create UI
+        return redirect()->route('objectives.index', ['create' => 1]);
     }
 
     public function store(ObjectiveRequest $request)

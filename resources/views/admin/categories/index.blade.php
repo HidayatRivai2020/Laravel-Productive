@@ -8,12 +8,15 @@
                 <h4 class="fs-18 fw-semibold m-0">Categories</h4>
             </div>
             <div class="mt-2 mt-sm-0">
-                <a href="{{ route('categories.create') }}" class="btn btn-primary">New Category</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCategoryModal">New Category</button>
             </div>
         </div>
         
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
         <!-- start row -->
@@ -88,6 +91,7 @@
             });
         });
     </script>
+    @include('admin.categories._modal_create')
 @endpush
 
 @endsection

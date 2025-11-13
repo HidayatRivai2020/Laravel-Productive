@@ -35,14 +35,16 @@ class ContentController extends Controller
 
         $contents = $query->orderBy($sortBy, $sortDir)->paginate($perPage)->appends($request->query());
 
-        return view('admin.contents.index', compact('contents'));
+        // Also provide categories for the modal-based create UI
+        $categories = Category::orderBy('name')->get();
+
+        return view('admin.contents.index', compact('contents', 'categories'));
     }
 
     public function create()
     {
-        // Provide categories so the create form can use them as the reference
-        $categories = Category::orderBy('name')->get();
-        return view('admin.contents.create', compact('categories'));
+        // Redirect to index which now contains the modal-based create UI
+        return redirect()->route('contents.index', ['create' => 1]);
     }
 
     public function store(ContentRequest $request): RedirectResponse
@@ -85,8 +87,17 @@ class ContentController extends Controller
     public function destroy($id): RedirectResponse
     {
         $content = Content::findOrFail($id);
-        $content->delete();
+        // Prevent deletion if there are child objectives
+        $hasChildren = \App\Models\Objective::where('content_id', $content->id)->exists();
+        if ($hasChildren) {
+            return Redirect::route('contents.index')->with('error', 'Cannot delete content because it has related objectives. Please delete or reassign its objectives first.');
+        }
 
-        return Redirect::route('contents.index')->with('success', 'Content deleted.');
+        try {
+            $content->delete();
+            return Redirect::route('contents.index')->with('success', 'Content deleted.');
+        } catch (\Exception $e) {
+            return Redirect::route('contents.index')->with('error', 'Unable to delete content.');
+        }
     }
 }
