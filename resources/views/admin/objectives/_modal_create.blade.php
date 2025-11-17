@@ -47,12 +47,6 @@
                         @error('image') <div class="text-danger">{{ $message }}</div>@enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Status</label>
-                        <input type="number" name="status" class="form-control" value="{{ old('status', 0) }}">
-                        @error('status') <div class="text-danger">{{ $message }}</div>@enderror
-                    </div>
-
                     <div class="d-flex justify-content-end">
                         <button class="btn btn-primary">Create</button>
                         <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Cancel</button>

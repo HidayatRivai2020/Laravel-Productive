@@ -60,12 +60,6 @@
                                 @error('image') <div class="text-danger">{{ $message }}</div>@enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Status</label>
-                                <input type="number" name="status" class="form-control" value="{{ old('status', $objective->status) }}">
-                                @error('status') <div class="text-danger">{{ $message }}</div>@enderror
-                            </div>
-
                             <button class="btn btn-primary">Update</button>
                         </form>
                     </div>

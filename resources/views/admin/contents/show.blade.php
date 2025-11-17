@@ -49,10 +49,64 @@
                                 <a href="{{ route('contents.index') }}" class="btn btn-secondary ms-2">Back</a>
                             </div>
                         </div>
+
+                        <!-- Child objectives list -->
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Objectives for this Content</h5>
+                                <div class="table-responsive">
+                                    <table id="datatable-content-objectives" class="table table-striped table-bordered dt-responsive nowrap w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $contentObjectives = \App\Models\Objective::where('content_id', $content->id)->get();
+                                            @endphp
+                                            @foreach($contentObjectives as $objective)
+                                                <tr>
+                                                    <td><a href="{{ route('objectives.show', $objective->id) }}">{{ $objective->id }}</a></td>
+                                                    <td>{{ $objective->name }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <!-- Datatables CSS (placed here to keep this page self-contained) -->
+    <link href="{{ asset('backend/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Datatables JS -->
+    <script src="{{ asset('backend/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('#datatable-content-objectives').DataTable({
+                responsive: true,
+                columnDefs: [
+                    { orderable: false, targets: [] }
+                ],
+                pageLength: {{ request('per_page', 10) }},
+            });
+        });
+    </script>
+@endpush
+
 @endsection

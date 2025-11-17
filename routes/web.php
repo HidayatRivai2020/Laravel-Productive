@@ -57,6 +57,36 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
     // Objectives CRUD
     Route::resource('objectives', ObjectiveController::class);
+    
+    // Todos CRUD
+    Route::resource('todos', \App\Http\Controllers\TodoController::class);
+
+    // Tasks CRUD with composite primary key
+    Route::get('tasks/with-selection', [\App\Http\Controllers\TaskController::class, 'indexWithSelection'])->name('tasks.index.with-selection');
+    Route::get('tasks', [\App\Http\Controllers\TaskController::class, 'index'])->name('tasks.index');
+    Route::get('tasks/create', [\App\Http\Controllers\TaskController::class, 'create'])->name('tasks.create');
+    Route::post('tasks', [\App\Http\Controllers\TaskController::class, 'store'])->name('tasks.store');
+    Route::get('tasks/{objectiveId}/{id}', [\App\Http\Controllers\TaskController::class, 'show'])->name('tasks.show');
+    Route::get('tasks/{objectiveId}/{id}/edit', [\App\Http\Controllers\TaskController::class, 'edit'])->name('tasks.edit');
+    Route::put('tasks/{objectiveId}/{id}', [\App\Http\Controllers\TaskController::class, 'update'])->name('tasks.update');
+    Route::delete('tasks/{objectiveId}/{id}', [\App\Http\Controllers\TaskController::class, 'destroy'])->name('tasks.destroy');
+
+    // API endpoints for AJAX cascading dropdowns
+    Route::get('categories/{categoryId}/contents', function($categoryId) {
+        return \App\Models\Content::where('category_id', $categoryId)->orderBy('name')->get(['id', 'name']);
+    });
+    
+    Route::get('contents/{contentId}/objectives', function($contentId) {
+        return \App\Models\Objective::where('content_id', $contentId)->orderBy('name')->get(['id', 'name']);
+    });
+    
+    Route::get('objectives/{objectiveId}/tasks', function($objectiveId) {
+        return \App\Models\Task::with('objective:id,name')->where('objective_id', $objectiveId)->orderBy('id')->get();
+    });
+    
+    Route::get('tasks/all', function() {
+        return \App\Models\Task::with('objective:id,name')->orderBy('objective_id')->orderBy('id')->get();
+    });
 });
 
 // Keep the legacy /dashboard route working by redirecting to the new grouped URL.

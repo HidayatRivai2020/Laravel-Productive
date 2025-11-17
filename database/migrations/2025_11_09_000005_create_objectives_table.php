@@ -14,11 +14,9 @@ return new class extends Migration
         Schema::create('objectives', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            // content id is a string because contents.id is a string PK in this app
             $table->string('content_id');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->integer('status')->default(0);
             $table->timestamps();
 
             $table->foreign('content_id')->references('id')->on('contents')->cascadeOnDelete();

@@ -5,20 +5,9 @@
         <div id="sidebar-menu">
 
             <div class="logo-box">
-                <a href="index.html" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
-                    </span>
+                <a href="{{ route('dashboard') }}" class="logo logo-dark text-decoration-none">
                     <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-light.png') }}" alt="" height="24">
-                    </span>
-                </a>
-                <a href="index.html" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{ asset('backend/assets/images/logo-sm.png') }}" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="{{ asset('backend/assets/images/logo-dark.png') }}" alt="" height="24">
+                        <span class="h3 fw-bold mb-0">ZONE</span>
                     </span>
                 </a>
             </div>
@@ -28,12 +17,12 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="#sidebarAuth" data-bs-toggle="collapse">
+                    <a href="#sidebarContent" data-bs-toggle="collapse">
                         <i data-feather="database"></i>
                         <span> Content Data </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarAuth">
+                    <div class="collapse" id="sidebarContent">
                         <ul class="nav-second-level">
                             <li>
                                 <a href="{{ route('categories.index') }}" class="tp-link">Categories</a>
@@ -44,19 +33,25 @@
                             <li>
                                 <a href="{{ route('objectives.index') }}" class="tp-link">Objectives</a>
                             </li>
+                            <li>
+                                <a href="{{ route('tasks.index') }}" class="tp-link">Tasks</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
                 <li>
-                    <a href="#sidebarAuth" data-bs-toggle="collapse">
+                    <a href="#sidebarProductivity" data-bs-toggle="collapse">
                         <i data-feather="briefcase"></i>
                         <span> Productivity </span>
                         <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="sidebarAuth">
+                    <div class="collapse" id="sidebarProductivity">
                         <ul class="nav-second-level">
                             <li>
                                 <a href="{{ route('admin.speedrun') }}" class="tp-link">Speed Run</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('todos.index') }}" class="tp-link">Todo_List</a>
                             </li>
                         </ul>
                     </div>

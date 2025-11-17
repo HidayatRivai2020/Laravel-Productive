@@ -32,8 +32,6 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Name</th>
-                                                <th>Description</th>
-                                                <th>Created</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -42,8 +40,6 @@
                                                 <tr>
                                                     <td>{{ $category->id }}</td>
                                                     <td>{{ $category->name }}</td>
-                                                    <td>{{ Str::limit($category->desc, 80) }}</td>
-                                                    <td>{{ $category->created_at->format('Y-m-d') }}</td>
                                                     <td>
                                                         <a href="{{ route('categories.show', $category->id) }}" class="btn btn-sm btn-info">View</a>
                                                         <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-warning">Edit</a>

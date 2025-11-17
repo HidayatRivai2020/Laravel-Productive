@@ -17,9 +17,31 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Create test users for local/dev testing
+        $users = [
+            [
+                'name' => 'test user',
+                'email' => 'test@zone.com',
+                'password' => bcrypt('qweqweqwe'),
+            ],
+            [
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
+                'password' => bcrypt('12345678'),
+            ],
+        ];
+
+        foreach ($users as $userData) {
+            User::factory()->create($userData);
+        }
+
+        // Seed all modules with dummy data
+        $this->call([
+            CategorySeeder::class,
+            ContentSeeder::class,
+            ObjectiveSeeder::class,
+            TodoSeeder::class,
+            TaskSeeder::class,
         ]);
     }
 }

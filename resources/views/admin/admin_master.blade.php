@@ -72,8 +72,10 @@
         <!-- for basic area chart -->
         <script src="https://apexcharts.com/samples/assets/stock-prices.js"></script>
 
-        <!-- Widgets Init Js -->
+        <!-- Widgets Init Js - Only load on dashboard pages -->
+        @if(request()->routeIs('dashboard') || request()->is('admin/dashboard'))
         <script src="{{ asset('backend/assets/js/pages/analytics-dashboard.init.js') }}"></script>
+        @endif
 
         <!-- App js-->
         <script src="{{ asset('backend/assets/js/app.js') }}"></script>

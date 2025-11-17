@@ -34,7 +34,6 @@
                                                 <th>Name</th>
                                                 <th>Category</th>
                                                 <th>Description</th>
-                                                <th>Created</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -45,7 +44,6 @@
                                                     <td>{{ $content->name }}</td>
                                                     <td>{{ $content->category?->name }}</td>
                                                     <td>{{ Str::limit($content->desc, 80) }}</td>
-                                                    <td>{{ $content->created_at->format('Y-m-d') }}</td>
                                                     <td>
                                                         <a href="{{ route('contents.show', $content->id) }}" class="btn btn-sm btn-info">View</a>
                                                         <a href="{{ route('contents.edit', $content->id) }}" class="btn btn-sm btn-warning">Edit</a>

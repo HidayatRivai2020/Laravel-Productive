@@ -14,7 +14,6 @@ class Objective extends Model
         'content_id',
         'description',
         'image',
-        'status',
     ];
 
     /**

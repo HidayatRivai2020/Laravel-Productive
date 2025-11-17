@@ -45,7 +45,65 @@
                                 <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">Edit</a>
                                 <a href="{{ route('categories.index') }}" class="btn btn-secondary ms-2">Back</a>
                             </div>
+                        </div>
+
+                        <!-- Child contents list -->
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Contents in this Category</h5>
+                                <div class="table-responsive">
+                                    <table id="datatable-category-contents" class="table table-striped table-bordered dt-responsive nowrap w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $categoryContents = \App\Models\Content::where('category_id', $category->id)->get();
+                                            @endphp
+                                            @foreach($categoryContents as $content)
+                                                <tr>
+                                                    <td><a href="{{ route('contents.show', $content->id) }}">{{ $content->id }}</a></td>
+                                                    <td>{{ $content->name }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <!-- Datatables CSS (placed here to keep this page self-contained) -->
+    <link href="{{ asset('backend/assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend/assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Datatables JS -->
+    <script src="{{ asset('backend/assets/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('#datatable-category-contents').DataTable({
+                responsive: true,
+                columnDefs: [
+                    { orderable: false, targets: -1 }
+                ],
+                pageLength: {{ request('per_page', 10) }},
+            });
+        });
+    </script>
+@endpush
+
 @endsection

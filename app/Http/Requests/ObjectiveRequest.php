@@ -24,7 +24,6 @@ class ObjectiveRequest extends FormRequest
             'content_id' => ['required', 'string', 'exists:contents,id'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
-            'status' => ['required', 'integer'],
         ];
 
         return $rules;

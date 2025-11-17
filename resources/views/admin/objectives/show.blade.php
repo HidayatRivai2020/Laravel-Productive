@@ -44,10 +44,6 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="col-sm-3">Status</th>
-                                        <td class="col-sm-9">{{ $objective->status }}</td>
-                                    </tr>
-                                    <tr>
                                         <th class="col-sm-3">Created</th>
                                         <td class="col-sm-9">{{ $objective->created_at }}</td>
                                     </tr>
